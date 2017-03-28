@@ -1,4 +1,5 @@
 # -*- coding:UTF-8 -*-
+# 机器学习（周志华）第三章习题3.3
 
 import readxls
 import matplotlib.pyplot as plt # 画散点图
@@ -7,15 +8,15 @@ from numpy import *
 def main():
     # 数据准备
     data = readxls.excel_table_byname("/Users/JJjie/Desktop/www/Mechine_Learning/dataset/西瓜3.0.xlsx", 0, "Sheet1")
-    old = mat(zeros((17, 3)))
+    old = mat(zeros((17, 2)))
     n = 0
-    b = mat(zeros((17, 3)))
+    b = mat(zeros((17, 2)))
     b[:, -1] = 1 # 利用索引得到最后一列为1
 
     # 对率回归计算
     while(1):
-        cur = mat(zeros((17, 3)))
-        x = mat(data[0:3]).T
+        cur = mat(zeros((17, 2)))
+        x = mat(data[0:2]).T
         y = mat(data[3]).T
         bx = multiply(x, b)
         cur = cur - multiply(y, bx) + log(1 + exp(bx))
