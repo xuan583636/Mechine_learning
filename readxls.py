@@ -43,3 +43,18 @@ def excel_table_byname(file= 'file.xls',colnameindex=0,by_name=u'Sheet1'):
                 app.append(row[i])
              list.append(app)
     return list
+
+# tuple 规定了读取的文件块：起始坐标（x,y）终点坐标（x,y）
+def excel_table_byrow_and_col(file = 'file.xls', by_name=u'Sheet1', *tuple):
+    data = open_excel(file)
+    table = data.sheet_by_name(by_name)
+    list = []
+    for rownum in range(tuple[0][0], tuple[1][0]):
+        row = table.row_values(rownum)
+        if row:
+            app = []
+            for i in range(tuple[0][1], tuple[1][1]):
+                app . append(row[i])
+            list.append(app)
+    return list
+

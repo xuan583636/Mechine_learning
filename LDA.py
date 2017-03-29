@@ -2,7 +2,7 @@
 # 机器学习（周志华）第三章习题3.5
 
 import readxls
-import matplotlib.pyplot as plt # 画散点图
+import matplotlib.pyplot as plt  # 画散点图
 from numpy import *
 
 def main():
