@@ -11,17 +11,17 @@ def main():
     d = mat(data)
 
     # 10折交差验证
-    # err0 = 0
-    # for tn in range(0, 9):
-    #     reset = d[:, (tn*5):((tn+1)*5)]
-    #     set = mat(zeros((6,0)))
-    #     if tn == 0:
-    #         set = d[:, ((tn+1)*5):50]
-    #     else:
-    #         set = d[:, 0:(tn*5)]
-    #         set = hstack((set, d[:, ((tn+1)*5):50])) # 行合并
-    #
-    #     b = logarithmic_regression(set, 45, 4)
+    err0 = 0
+    for tn in range(0, 9):
+        reset = d[:, (tn*5):((tn+1)*5)]
+        set = mat(zeros((6,0)))
+        if tn == 0:
+            set = d[:, ((tn+1)*5):50]
+        else:
+            set = d[:, 0:(tn*5)]
+            set = hstack((set, d[:, ((tn+1)*5):50])) # 行合并
+
+        b = logarithmic_regression(set, 45, 4)
 
 
     # 留出法
@@ -31,21 +31,16 @@ def main():
     set = concatenate((set, d[:, 50:90]), axis=1)
     reset = concatenate((reset, d[:, 90:100]), axis=1)
 
-    xdata = mat(set[0:4]).T
+    xdata = mat(set[0:5]).T
     ydata = mat(set[5]).T
     ydata = ydata - 1
-    b = logarithmic_regression(xdata, ydata, 80, 4)
+    b = logarithmic_regression(xdata, ydata, 4)
     print b
     b = b.T
-    list = []
-    for i in range(len(b)):
-        t = sum(abs(b.A[i])) / len(b.A[i])
-        list.append(t)
-    list = mat(list)
-    x = reset[0:4]
+    x = reset[0:5]
     y = mat(reset[5]).T
     y = y - 1
-    tmp = 1 / (1 + exp(-list * x))
+    tmp = 1 / (1 + exp(-b * x))
     tmp = (tmp >= 0.5)
     tmp = tmp.A[0]
     for i in range(20):
