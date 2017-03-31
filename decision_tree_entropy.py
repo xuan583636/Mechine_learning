@@ -34,8 +34,8 @@ class dtree():
             tmp_data_property.append(self.data_property[-1])
         else:
             tmp_data_property=self.data_property
-        # for each in  tmp_data_property:
-        #     print each.index
+        for each in  tmp_data_property:
+            print each.attribute, each.subattributes, each.index
 
         #决策树树形数组结构
         self.treelink=[]
@@ -227,7 +227,7 @@ class dtree():
                 for i in range(0,len(rowdata)):
                     self.data.append([])
                     self.data_property.append(property(i,rowdata[i]))
-                    # self.data_property[i].attribute=rowdata[i]
+                    self.data_property[i].attribute=rowdata[i]
                 linelen=len(rowdata)
             elif(linelen==len(rowdata)):
                 if(first==1):

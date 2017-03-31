@@ -73,8 +73,8 @@ class dtreeplot:
     def __calonebyone(self,nodes,l,r,start,minspace):
         for i in range(l,r):
                 nodes[i].pos=max(nodes[i].pos,start)
-                start=nodes[i].pos+minspace;
-        return start;
+                start=nodes[i].pos+minspace
+        return start
 
     '''
     计算每个节点的位置与相对偏移
@@ -86,7 +86,7 @@ class dtreeplot:
         for nodes in treelevel:
             #记录非叶节点
             noleaf=[]
-            num=0;
+            num=0
             for node in nodes:
                 if len(node.children)>0:
                     noleaf.append(num)
@@ -137,7 +137,7 @@ class dtreeplot:
              drawcircle(treenode.pos,(treenode.height+1)*lh,r)
              plt.text(treenode.pos, (treenode.height+1)*lh, treenode.data, color=(1,0,0),ha='center', va='center')
 
-         num=0;
+         num=0
          #先根遍历
          for node in treenode.children:
              self.__drawtree(node,r,lh,curoffset+treenode.offset)
