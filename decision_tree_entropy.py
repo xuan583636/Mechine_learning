@@ -34,6 +34,8 @@ class dtree():
             tmp_data_property.append(self.data_property[-1])
         else:
             tmp_data_property=self.data_property
+        # for each in  tmp_data_property:
+        #     print each.index
 
         #决策树树形数组结构
         self.treelink=[]
@@ -70,7 +72,7 @@ class dtree():
 
         #结束条件2：所有样本相同属性，选择分类数多的一类作为分类
         if all(len(self.__count(data_set,property_set[i]))==1 for i in range(0,len(property_set)-1)):
-            max_count=-1;
+            max_count=-1
             for dataclass in property_set[-1].subattributes:
                 if current_data_class[dataclass]>max_count:
                     max_attribute=dataclass
@@ -110,7 +112,7 @@ class dtree():
                 else:
                     #如果某一个子属性不存没有对应的样本，则选择父节点分类更多的一项作为分类
                     self.treelink.append([])
-                    max_count=-1;
+                    max_count=-1
                     tnode=len(self.treelink)-1
                     for dataclass in property_set[-1].subattributes:
                         if current_data_class[dataclass]>max_count:
@@ -158,15 +160,14 @@ class dtree():
                            tmax_ent = cur_ent
                            tmp_threshold = xlist[j]
                    if(tmax_ent > max_ent):
-                        max_ent=tmax_ent;
-                        bestprop = property_set[i];
-                        best_threshold = tmp_threshold;
+                        max_ent=tmax_ent
+                        bestprop = property_set[i]
+                        best_threshold = tmp_threshold
             else:
                 #直接统计并计算
                 cur_ent=0
-                nums=[[0,0] for i in range(0,len(property_set[i].subattributes))]
+                nums=[[0,0] for k in range(0,len(property_set[i].subattributes))]
                 for j in data_set:
-                    print   property_set[i].index
                     nums[property_set[i].index[self.data[prop_id][j]]][property_set[-1].index[self.data[-1][j]]]+=1
                 for j in range(0,len(property_set[i].subattributes)):
                     subattribute_sum=nums[j][0]+nums[j][1]
@@ -174,9 +175,9 @@ class dtree():
                         p=nums[j][0]/subattribute_sum
                         cur_ent += (p*math.log(p+0.00001,2)+(1-p)*math.log(1-p+0.00001,2))*subattribute_sum/len(data_set)
                 if(cur_ent > max_ent):
-                    max_ent=cur_ent;
-                    bestprop = property_set[i];
-                    best_threshold = [];
+                    max_ent=cur_ent
+                    bestprop = property_set[i]
+                    best_threshold = []
 
         return bestprop,best_threshold
 
@@ -185,13 +186,12 @@ class dtree():
     '''
     def __count(self,data_set,prop):
         out={}
-
         rowdata=self.data[prop.id]
         for i in data_set:
             if rowdata[i] in out:
                 out[rowdata[i]]+=1
             else:
-                out[rowdata[i]]=1;
+                out[rowdata[i]]=1
 
         return out
 
@@ -201,7 +201,7 @@ class dtree():
     def __dataread(self,filename,haveID):
         file = open(filename, 'r')
         linelen=0
-        first=1;
+        first=1
         while 1:
             #按行读
             line = file.readline()
