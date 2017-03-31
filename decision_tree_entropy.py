@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from dtreeplot import dtreeplot
-import math
+from math import *
 
 #属性类
 class property:
@@ -84,6 +84,7 @@ class dtree():
 
         #信息增益选择最优属性与阈值
         prop,threshold = self.__entropy_paraselect(data_set,property_set)
+        print prop.index
 
         #记录当前节点的最优属性标签与父节点连接当前节点的子属性值
         self.treelink[curnode].append(prop.attribute)
@@ -135,6 +136,13 @@ class dtree():
     def __entropy_paraselect(self,data_set,property_set):
         #分离散和连续型分别计算信息增益，选择最大的一个
         max_ent=-10000
+        # 样本总分布信息熵
+        nums = [0 for i in range(0, len(property_set[-1].subattributes))]
+        for j in data_set:
+            nums[property_set[-1].index[self.data[-1][j]]] += 1
+        total_sum = float(nums[0] + nums[1])
+        origin_ent = -((nums[0] * log(nums[0]/total_sum, 2)) + (nums[1] * log(nums[1]/total_sum, 2)))/total_sum
+
         for i in range(0,len(property_set)-1):
             prop_id=property_set[i].id
             if(property_set[i].is_continuity):
@@ -170,12 +178,11 @@ class dtree():
                 for j in data_set:
                     nums[property_set[i].index[self.data[prop_id][j]]][property_set[-1].index[self.data[-1][j]]]+=1
                 for j in range(0,len(property_set[i].subattributes)):
-                    subattribute_sum=nums[j][0]+nums[j][1]
+                    subattribute_sum = float(nums[j][0]+nums[j][1])
                     if(subattribute_sum>0):
-                        p=nums[j][0]/subattribute_sum
-                        cur_ent += (p*math.log(p+0.00001,2)+(1-p)*math.log(1-p+0.00001,2))*subattribute_sum/len(data_set)
-                if(cur_ent > max_ent):
-                    max_ent=cur_ent
+                        cur_ent += -((nums[j][0] * log(nums[j][0] / subattribute_sum + 0.00001, 2)) + (nums[j][1] * log(nums[j][1] / subattribute_sum + 0.00001, 2))) / total_sum
+                if(origin_ent - cur_ent > max_ent):
+                    max_ent = origin_ent - cur_ent
                     bestprop = property_set[i]
                     best_threshold = []
 
