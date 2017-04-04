@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# 《机器学习》（周志华）第四章习题4.3
+"""
+编程实现基于信息熵进行划分选择的决策树，并为表4.3中的数据生成一颗决策树
+"""
 
 from dtreeplot import dtreeplot
 from math import *

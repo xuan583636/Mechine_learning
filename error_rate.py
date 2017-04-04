@@ -1,5 +1,8 @@
 # -*- coding:UTF-8 -*-
 # 机器学习（周志华）第三章3.4
+"""
+选择两个UCI数据集，比较10折交叉验证法和留一法所估计的对率回归错误率
+"""
 
 import readxls
 from numpy import *

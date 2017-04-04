@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
 # 机器学习（周志华）第三章习题3.5
+"""
+编程实现线性判别分析，并给出西瓜数据集3.0å上的结果
+"""
 
 import readxls
 import matplotlib.pyplot as plt  # 画散点图
