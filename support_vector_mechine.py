@@ -11,6 +11,7 @@ sys.path.append("./libsvm/python")
 import svmutil as svm
 import readxls
 
+
 if __name__ == '__main__':
     # 导入数据
     data = readxls.excel_table_byname("/Users/JJjie/Desktop/www/Mechine_Learning/dataset/西瓜3.0.xlsx", 0, "Sheet1")
@@ -28,4 +29,6 @@ if __name__ == '__main__':
     # 高斯核
     param = svm.svm_parameter('-t 2 -c 4')
     m = svm.svm_train(prob, param)
+
+
 
