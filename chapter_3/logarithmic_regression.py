@@ -4,9 +4,11 @@
 编程实现对率回归，并给出西瓜数据集3.0å上的结果
 """
 
-import readxls
-import matplotlib.pyplot as plt # 画散点图
+import matplotlib.pyplot as plt  # 画散点图
 from numpy import *
+
+from tool import readxls
+
 
 # 对数回归，参数 x样本，y样本，x样本维度
 def logarithmic_regression(x, y, col):

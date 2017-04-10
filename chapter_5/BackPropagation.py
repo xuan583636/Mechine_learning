@@ -10,8 +10,10 @@ ABP算法每次迭代会先算出所有样本的输出，然后最小化整个�
 ABP参数更新次数比BP算法少的多，但是当累计误差降到一定程度时，进一步下降会非常缓慢。
 """
 
-import readxls
 from numpy import *
+
+from tool import readxls
+
 
 def BP(x, y):
     x = matrix(x)

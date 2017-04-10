@@ -5,9 +5,10 @@
 试用核技巧推广对率回归，产生"核对率回归"
 """
 
-import readxls
 import numpy as np
-import matplotlib.pyplot as plt
+
+from tool import readxls
+
 
 def run(x, y):
     old_l = 0           # 记录上次计算的L

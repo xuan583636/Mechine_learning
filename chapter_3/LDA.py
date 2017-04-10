@@ -4,9 +4,11 @@
 编程实现线性判别分析，并给出西瓜数据集3.0å上的结果
 """
 
-import readxls
 import matplotlib.pyplot as plt  # 画散点图
 from numpy import *
+
+from tool import readxls
+
 
 def main():
     data = readxls.excel_table_byname("/Users/JJjie/Desktop/www/Mechine_Learning/dataset/西瓜3.0.xlsx", 0, "Sheet1")

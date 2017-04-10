@@ -4,13 +4,14 @@
 选择两个UCI数据集，比较10折交叉验证法和留一法所估计的对率回归错误率
 """
 
-import readxls
 from numpy import *
-import matplotlib.pylab as plt
-from logarithmic_regression import logarithmic_regression
+
+from chapter_3.logarithmic_regression import logarithmic_regression
+from tool import readxls
+
 
 def main():
-    data = readxls.excel_table_byrow_and_col("/Users/JJjie/Desktop/www/Mechine_Learning/dataset/UCI-iris数据集.xlsx", "Sheet1", (6,0),(12,100))
+    data = readxls.excel_table_byrow_and_col("/Users/JJjie/Desktop/www/Mechine_Learning/dataset/UCI-iris数据集.xlsx", "Sheet1", (6, 0), (12, 100))
     d = mat(data)
     k = 100  # 样本总个数
 

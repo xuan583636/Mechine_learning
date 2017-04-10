@@ -9,8 +9,7 @@ import sys
 # 加入import系统路径
 sys.path.append("./libsvm/python")
 import svmutil as svm
-import readxls
-
+from tool import readxls
 
 if __name__ == '__main__':
     # 导入数据
