@@ -1,0 +1,6 @@
+[DateTime:2009-01-29-23-17-57-028],[SessionID:15],[Type:LoadImage],[Desc:mona-rgb.jpg]
+[DateTime:2009-01-29-23-18-18-043],[SessionID:15],[Type:ZoomIn],[Desc:238,194]
+[DateTime:2009-01-29-23-18-19-223],[SessionID:15],[Type:ZoomIn],[Desc:238,194]
+[DateTime:2009-01-29-23-18-19-874],[SessionID:15],[Type:ZoomIn],[Desc:238,194]
+[DateTime:2009-01-29-23-18-20-185],[SessionID:15],[Type:ZoomIn],[Desc:238,194]
+[DateTime:2009-01-29-23-18-49-736],[SessionID:15],[Type:Calc],[Desc:RGB(0,0,255)]

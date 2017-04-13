@@ -1,0 +1,116 @@
+<model>
+<modelname>Mona Lisa Activity</modelname>
+
+<inputnode>
+<nodeid>1</nodeid>
+<label>Zooms in</label>
+<prior>0.1</prior>
+<eventtype>pixelmath</eventtype>
+<filter>{DESC:/ZoomIn|Zoom In/}</filter>
+<responsemethod>(ACCUM_ZENO 0.7)</responsemethod>
+<x>100</x>
+<y>100</y>
+</inputnode>
+
+<inputnode>
+<nodeid>2</nodeid>
+<label>Zooms out</label>
+<prior>0.1</prior>
+<eventtype>pixelmath</eventtype>
+<filter>{DESC:/ZoomOut|Zoom Out/}</filter>
+<responsemethod>(ONE_SHOT)(REQUIRE 5)</responsemethod>
+<x>100</x>
+<y>200</y>
+</inputnode>
+
+<midnode>
+<nodeid>3</nodeid>
+<label>Completes zoom in and out</label>
+<prior>0.1</prior>
+<parents>1,2</parents>
+<pd>0.1,0.3,0.3,0.8</pd>
+<x>200</x>
+<y>150</y>
+</midnode>
+
+<inputnode>
+<nodeid>4</nodeid>
+<label>Selects pixels</label>
+<prior>0.1</prior>
+<eventtype>pixelmath</eventtype>
+<filter>{DESC:/Select/}</filter>
+<responsemethod>(ONE_SHOT)(REQUIRE 2)</responsemethod>
+<x>100</x>
+<y>300</y>
+</inputnode>
+
+<inputnode>
+<nodeid>5</nodeid>
+<label>Calculates</label>
+<prior>0.1</prior>
+<eventtype>pixelmath</eventtype>
+<filter>{DESC:/Formula=\w/}</filter>
+<responsemethod>(ONE_SHOT)(REQUIRE 2)</responsemethod>
+<x>100</x>
+<y>400</y>
+</inputnode>
+
+<midnode>
+<nodeid>6</nodeid>
+<label>Changes selected pixels</label>
+<prior>0.2</prior>
+<parents>4,5</parents>
+<pd>0.1,0.4,0.2,0.9</pd>
+<x>200</x>
+<y>350</y>
+</midnode>
+
+<inputnode>
+<nodeid>7</nodeid>
+<label>Posts answer</label>
+<prior>0.1</prior>
+<eventtype>forumpost</eventtype>
+<filter>{SUBJECT:/Reality|reality/}</filter>
+<responsemethod>(ONE_SHOT)</responsemethod>
+<x>100</x>
+<y>500</y>
+</inputnode>
+
+<outnode>
+<nodeid>8</nodeid>
+<label>Zoomed! (to file)</label>
+<prior>0.0</prior>
+<threshold>0.7</threshold>
+<parents>3</parents>
+<pd>0.0,1.0</pd>
+<action>{NOTIFY "fakesub" "Student $STUDENTLASTNAME$,$STUDENTFIRSTNAME$ -- Student ID: $STUDENTID$ has completed zoom part with certainty: $POSTERIOR$
+" (/homes/gws/nathanev/mona/mona-zoom-success.gmo)}</action>
+<x>300</x>
+<y>150</y>
+</outnode>
+
+<midnode>
+<nodeid>9</nodeid>
+<label>Done w Pt 2</label>
+<prior>0.1</prior>
+<parents>3,6,7</parents>
+<pd>0.0,0.1,0.1,0.2,0.1,0.3,0.3,0.9</pd>
+<x>300</x>
+<y>250</y>
+</midnode>
+
+<outnode>
+<nodeid>10</nodeid>
+<label>Pt 2 Done (auto post)</label>
+<prior>0.0</prior>
+<threshold>0.7</threshold>
+<parents>9</parents>
+<pd>0.0,1.0</pd>
+<action>{NOTIFY "Student $STUDENTLASTNAME$,$STUDENTFIRSTNAME$ -- Student ID: $STUDENTID$ did Part 2" "Certainty is $POSTERIOR$." ($STUDENTGROUP$|$AUTO
+GROUP$)}</action>
+<x>400</x>
+<y>250</y>
+</outnode>
+
+</model>
+
