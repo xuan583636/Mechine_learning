@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2017/4/13 16:30
+# @Time    : 2017/4/15 15:17
 # @Author  : UNE
-# @Site    : 
-# @File    : AdaBoosw.py
+# @Project : Mechine_learning
+# @File    : Bagging.py
 # @Software: PyCharm
-# 《机器学习》（周志华）第八章8.3
+# 《机器学习》（周志华）第八章8.6
 """
-编程实现AdaBoosw，以不剪枝决策树为基学习器，在西瓜数据集3.0å上训练一个AdaBoosw集成，并于图8.4作比较
+编程实现Bagging,以决策树桩为学习器，在西瓜数据集3.0α上训练一个Bagging集成，并与8.6进行比较。 
 """
 
 from tool import readxls
@@ -41,6 +41,11 @@ if __name__ == '__main__':
                                 [fenlei[int(y_index[i])] for i in y_index] + ['无','无']])
 
     for i in range(12):             # 产生12个分类器
+        # 随机权值并缩小
+        sw = abs(np.random.poisson(1.0,(1, 17)))
+        sw.dtype = 'float64'
+        sw = sw / sum(sw[0])
+
         Tree = np.zeros((1,100))
         Ptr = 0
         Py = np.zeros((1,17))
@@ -51,13 +56,7 @@ if __name__ == '__main__':
         Py = dtree.Py
         print minn, threshold
 
-        er = sum(np.dot((Py != y), sw.T))
-        if er > 0.5 :
-            break
-        a = 0.5 * np.log((1 - er) / er)
-        sw = sw * (np.exp(a * ((Py != y) * 2) - 1).values)
-        sw = sw / sum(sw[0])
-        sy = sy + a * Py
+        sy += Py * sw
 
         for j in range(17):
             Res.iloc[i, j] = fenlei[int((1 - np.sign(sy[0][j]))/2)]
