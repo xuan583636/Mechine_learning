@@ -171,14 +171,14 @@ if __name__ == '__main__':
         if er > 0.5 :
             break
         a = 0.5 * np.log((1 - er) / er)
-        sw = np.dot(sw.T, np.exp(a * ((Py != y) * 2) - 1))
-        sw = sw / sum(sw)
+        sw = sw * (np.exp(a * ((Py != y) * 2) - 1).values)
+        sw = sw / sum(sw[0])
         sy = sy + a * Py
 
         for j in range(17):
-            Res[i, j] = fenlei[int((1 - np.sign(sy[0][j]))/2)]
+            Res.iloc[i, j] = fenlei[int((1 - np.sign(sy[0][j]))/2)]
 
-        Res[i, 18] = shuxing[minn]
-        Res[i, 19] = threshold
+        Res.iloc[i, 17] = shuxing[minn]
+        Res.iloc[i, 18] = threshold
 
     print Res
