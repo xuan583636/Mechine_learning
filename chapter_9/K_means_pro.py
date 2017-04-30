@@ -4,7 +4,7 @@
 # @Project : Mechine_learning
 # @File    : K_means_pro.py
 # @Software: PyCharm
-# 《机器学习》（周志华）第九章9.4
+# 《机器学习》（周志华）第九章9.10
 
 """
 实现一种能自动确定聚类数的改进k均值算法，编程实现并在西瓜数据集上运行。
