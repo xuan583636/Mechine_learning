@@ -8,6 +8,8 @@
 # 《机器学习》（周志华）第十章 10.1
 """
 编程实现k邻近分类器，在西瓜数据集3.0α上比较其与决策树分类边界的异同
+
+单变量决策树只有水平和垂直边界不同，k邻近分类器可以有曲线边界
 """
 
 import numpy as np
@@ -23,10 +25,10 @@ if __name__ == '__main__':
     data = readxls.excel_table_byname("/Users/JJjie/Desktop/Projects/Mechine_Learning/dataset/西瓜3.xlsx", 0, "Sheet1")
     x = np.array(data[6: 8])
     y = np.array(data[8])
-    y = -2 * y + 3                  # 1 好瓜，-1坏瓜
+    y = -2 * y + 3                          # 1 好瓜，-1坏瓜
 
-    k = 3                           # 近邻数
-    edist = pd.Series(np.zeros(17))       # 计算k近邻边界
+    k = 3                                   # 近邻数
+    edist = pd.Series(np.zeros(17))         # 计算k近邻边界
     for i in np.arange(0.22, 0.78, 0.01):
         for j in np.arange(0.02, 0.48, 0.01):
             # 计算各样本距离
