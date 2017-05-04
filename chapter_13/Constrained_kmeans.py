@@ -99,7 +99,8 @@ if __name__ == '__main__':
             if mf == 1 and j == k-1:
                 for j in range(k):
                     tj = dist.iloc[j]
-                    ptr = flag_m[i]
+                    ptr = int(flag_m[i])
+                    print ptr
                     mf = 0
                     while ptr > 0 and ptr < 7 and m1[0][ptr]==i:
                         if flag_p[m1[1][ptr]] == tj:
