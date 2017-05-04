@@ -48,7 +48,7 @@ if __name__ == '__main__':
             flag_m[m1[0][i]] = i
 
     while 1:
-        flag_p = np.zeros([m, 1])
+        flag_p = np.zeros([m, 1], dtype="int64")
         # 对所有样本遍历，选择最近的集合
         for i in range(m):
             # 如果已经被标记就跳过
@@ -100,9 +100,8 @@ if __name__ == '__main__':
                 for j in range(k):
                     tj = dist.iloc[j]
                     ptr = int(flag_m[i])
-                    print ptr
                     mf = 0
-                    while ptr > 0 and ptr < 7 and m1[0][ptr]==i:
+                    while ptr > 0 and ptr < 6 and m1[0][ptr]==i:
                         if flag_p[m1[1][ptr]] == tj:
                             mf = 1
                             break
@@ -118,10 +117,10 @@ if __name__ == '__main__':
 
         # 将各类集合清空
         c = np.zeros([k, 30])
-        nums = np.zeros([k, 1])
+        nums = np.zeros([k, 1],dtype="int64")
         for i in range(m):
-            nums[flag_p[i]] += 1
             c[flag_p[i], nums[flag_p[i]]] = i
+            nums[flag_p[i]] += 1
         # 计算两次均值差异，并更新均值
         ut = np.zeros([k, 2])
         for i in range(k):
