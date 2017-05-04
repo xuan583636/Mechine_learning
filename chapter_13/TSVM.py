@@ -38,7 +38,10 @@ def plc_svm(xl,yl,cl,xc,yc,cu):
     b = np.array([-1*np.ones(ml+mc,1), np.zeros(ml+mc, 1)])
     # 使用二次规划求解
     # 由于需要用到松弛变了，返回松弛变量和超平面参数
-    
+    p = quadprog(H, f, A, b)
+    w = p[1:nl]
+    p = p[nl + 1 : ml + nl + mc]
+    return w, p
 
 
 if __name__ == '__main__':
@@ -69,12 +72,15 @@ if __name__ == '__main__':
     err_svm = sum(abs(predict - tyt)) / 2   # 计算未使用无标记样本时SVM的错误个数
     print err_svm
 
-    yt = clf.predict(xt.values)             # 对无标记进行伪标记
+    yc = clf.predict(xc.values)             # 对无标记进行伪标记
     cu = 0.01                               # 初始无标记样本的折中参数
 
-    txt = xt                                # 为了计算方便需要改变xc的排序，所以使用临时变量
+    txc = xc                                # 为了计算方便需要改变xc的排序，所以使用临时变量
     while cu < cl:
         # 使用训练样本和伪标记样本训练SVM
-        
+        w, p = plc_svm(xl, yl, cl, txc, yc, cu)
+        while 1:
+            # 为了简化计算，每次选出正负伪标记中最大的松弛变量对应的伪标记样本，更换伪标记。
+            yc_nums = np.histc(yc, [-1, 1])
 
 
