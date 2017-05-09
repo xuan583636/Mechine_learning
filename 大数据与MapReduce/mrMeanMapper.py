@@ -39,3 +39,4 @@ sqInput = np.power(input, 2)    # 阶乘
 
 print "%d\t%f\t%f" % (numInputs, np.mean(input), np.mean(sqInput))
 print >> sys.stderr, "report: still alive"
+# >> 用报错模块显示（标红）
