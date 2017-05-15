@@ -12,6 +12,7 @@ import operator
 import pandas as pd
 import numpy as np
 import treePlotter as plt
+import pickle   # 序列化存储
 
 # 计算信息熵
 def calsShannonEnt(dataset):
@@ -85,6 +86,29 @@ def createTree(dataset, labels):
         subLabels = labels[:]   # 不改变原始表的内容
         myTree[bestFeatLabel][value] = createTree(splitDataset(dataset, bestFeat, value), subLabels)
     return myTree
+
+# 分类
+def classify(inputTree, featLabels, testVec):
+    firstStr = inputTree.keys()[0]
+    secondDict = inputTree[firstStr]
+    featIndex = featLabels.index[firstStr]
+    for key in secondDict.keys():
+        if testVec[featIndex] == key:
+            if type(secondDict[key]).__name__ == 'dict':
+                classLabel = classify(secondDict[key], featLabels, testVec)
+            else:
+                classLabel = secondDict[key]
+    return classLabel
+
+# 模型的存储于读取
+def storeTree(inputTree, filename):
+    fw = open(filename, 'w')
+    pickle.dump(inputTree, fw)
+    fw.close()
+
+def grabTree(filename):
+    fr = open(filename)
+    return pickle.load(fr)
 
 if __name__ == '__main__':
     filename = "/Users/JJjie/Desktop/Projects/dataset/zzh_watermelon/西瓜3.xlsx"
