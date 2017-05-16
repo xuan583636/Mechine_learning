@@ -73,10 +73,54 @@ def classifyNB(vec2Classify, p0vec, p1vec, pClass1):
     else:
         return 0
 
+# 垃圾邮件分类
+def textParse(bigString):
+    import re
+    listOfTokens = re.split(r'\w*', bigString) # 除去单词，数字外的任意字符
+    return [tok.lower() for tok in listOfTokens if len(tok) > 2]
+
+def spamTest():
+    docList = []
+    classList = []
+    fullTest = []
+    for i in range(1, 26):
+        filepath = '/Users/JJjie/Desktop/Projects/dataset/email/spam/%d.txt' % i
+        wordList = textParse(open(filepath).read())
+        docList.append(wordList)
+        fullTest.extend(wordList)
+        classList.append(1)
+
+        filepath = '/Users/JJjie/Desktop/Projects/dataset/email/ham/%d.txt' % i
+        wordList = textParse(open(filepath).read())
+        docList.append(wordList)
+        fullTest.extend(wordList)
+        classList.append(0)
+    vocabList = createVocabList(docList)
+
+    trainingSet = range(50)
+    testSet = []
+    for i in range(10):
+        randeIndex = int(np.random.uniform(0, len(trainingSet)))
+        testSet.append(trainingSet[randeIndex])
+        del trainingSet[randeIndex]
+    trainMat = []
+    trainClasses = []
+    for docIndex in trainingSet:
+        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
+        trainClasses.append(classList[docIndex])
+    p0v, p1v, pSpam = trainNBO(np.array(trainMat), np.array(trainClasses))
+    errorCount = 0
+    for docIndex in testSet:
+        wordVector = setOfWords2Vec(vocabList, docList[docIndex])
+        if classifyNB(np.array(wordVector), p0v, p1v, pSpam) != classList[docIndex]:
+            errorCount += 1
+    print 'the error rate is: ', float(errorCount) / len(testSet)
+
 if __name__ == '__main__':
     listOPosts, listClasses = loadDataset()
     myVocabList = createVocabList(listOPosts)
     # 将一组单词序列变为数字序列
+    print "单词序列变为数字序列"
     print myVocabList
     print setOfWords2Vec(myVocabList, listOPosts[0])
     trainMat = []
@@ -84,10 +128,14 @@ if __name__ == '__main__':
         trainMat.append(setOfWords2Vec(myVocabList, postinDoc))
     p0v, p1v, pAb = trainNBO(trainMat, listClasses)
 
+    print "恶意留言分类结果"
     testEntry = ['love', 'my', 'dalmation']
     thisDoc = np.array(setOfWords2Vec(myVocabList, testEntry))
     print testEntry, "classified as: ", classifyNB(thisDoc, p0v, p1v, pAb)
     testEntry = ['stupid', 'garbage']
     thisDoc = np.array(setOfWords2Vec(myVocabList, testEntry))
     print testEntry, "classified as: ", classifyNB(thisDoc, p0v, p1v, pAb)
+
+    print "垃圾邮件分类"
+    spamTest()
 
