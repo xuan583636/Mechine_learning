@@ -8,6 +8,10 @@
 # 《机器学习实战》第三章
 
 import matplotlib.pyplot as plt
+import matplotlib
+# 解决中文显示问题
+matplotlib.rcParams['font.sans-serif'] = ['SimHei']     # 指定默认字体
+matplotlib.rcParams['axes.unicode_minus'] = False       # 解决保存图像是负号'-'显示为方块的问题
 
 # 定义文本框和箭头格式
 decisionNode = dict(boxstyle="sawtooth", fc="0.8")  # 返回一个字典
