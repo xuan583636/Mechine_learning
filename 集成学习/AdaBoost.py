@@ -15,7 +15,7 @@ import pandas as pd
 from dTree import dTree
 
 if __name__ == '__main__':
-    data = readxls.excel_table_byname("/Users/JJjie/Desktop/Projects/Mechine_Learning/dataset/西瓜3.xlsx", 0, "Sheet1")
+    data = readxls.excel_table_byname("/Users/JJjie/Desktop/Projects/dataset/西瓜3.xlsx", 0, "Sheet1")
     x = pd.DataFrame(data[6:8])
     y = pd.DataFrame(data[8])
     y = y.T
